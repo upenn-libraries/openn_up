@@ -2,8 +2,19 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'active_support/core_ext/string/output_safety'
 require 'open-uri'
+require 'net/http'
 
 require 'pry' if development?
+
+MEGABYTE = 1024 * 1024
+
+class File
+
+  def each_chunk(chunk_size = MEGABYTE)
+    yield read(chunk_size) until eof?
+  end
+
+end
 
 class OpennObject < ActiveRecord::Base
 
@@ -18,17 +29,23 @@ class Application < Sinatra::Base
   end
 
   def fetch_from_colenda(openn_id)
-    payload = ''
-    headers = 'image/tif'
+    headers ='application/octet-stream'
     colenda_path = OpennObject.where(:openn_id => openn_id).pluck(:colenda_id)
     raise 'non-unique path value' if colenda_path.size > 1
     colenda_path = colenda_path.first
-    begin
-      open(colenda_path) { |io| payload = io.read }
-    rescue => exception
-      return "#{exception.message} returned by source"
+
+    return colenda_path, headers
+  end
+
+  def load_from_colenda(resource, &block)
+    http = Net::HTTP.new(resource)
+    http.use_ssl = false;
+    http.start do |http|
+      req = Net::HTTP::Get.new(resource, {"User-Agent" =>"API downloader"})
+      http.request(req) do |origin_response|
+        origin_response.read_body(&block)
+      end
     end
-    return payload, headers
   end
 
   get '/loadup/?' do
@@ -49,9 +66,13 @@ class Application < Sinatra::Base
 
   get '/openn/*' do
     openn_id = params['splat'].first
-    payload, headers = fetch_from_colenda(openn_id)
+    colenda_id, headers = fetch_from_colenda(openn_id)
     content_type(headers)
-    return payload
+    stream do |out|
+      load_from_colenda(colenda_id) do |chunk|
+        out << chunk
+      end
+    end
   end
 
 end
