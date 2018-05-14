@@ -1,0 +1,16 @@
+<h2>Welcome to OPenn Up</h2>
+
+<table style="width:100%;" border="1" cellpadding="10">
+  <tr>
+    <th>OPenn Path</th>
+    <th>Colenda ID</th>
+  </tr>
+  <% @openn_objects.each do |entry| %>
+      <tr>
+        <td><%= entry.openn_id %></td>
+        <td><%= entry.colenda_id %></td>
+      </tr>
+  <% end %>
+</table>
+
+
