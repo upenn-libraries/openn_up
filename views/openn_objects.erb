@@ -1,16 +1,23 @@
-<h2>Welcome to OPenn Up</h2>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans">
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Serif">
 
-<table style="width:100%;" border="1" cellpadding="10">
-  <tr>
-    <th>OPenn Path</th>
-    <th>Colenda ID</th>
-  </tr>
-  <% @openn_objects.each do |entry| %>
-      <tr>
-        <td><%= entry.openn_id %></td>
-        <td><%= entry.colenda_id %></td>
-      </tr>
-  <% end %>
-</table>
+<div id="div_logo"><a href="/" title="OPenn Home"><img src="openn_toplogo10.jpg" alt="OPenn"></a></div>
+<div id="div_toplinks"><a href="/ReadMe.html">Introduction</a> -
+  <a href="/TechnicalReadMe.html">Technical Help</a> -
+  <a href="/Repositories.html">Repositories</a> -
+  <a href="/CuratedCollections.html">Curated Collections</a>
+</div>
 
+<div id="content">
+  <p>OPenn contains complete sets of high-resolution archival images of cultural heritage material from the collections of its contributing institutions, along with machine-readable descriptive and technical metadata. All materials on OPenn are in the public domain or released under Creative Commons licenses as Free Cultural Works. Please see specific repository pages and documents for applicable license terms.</p>
+  <ul>
 
+    <% openn_entries.each do |entry| %>
+        <h2><%= entry %></h2>
+      <% object_files(entry).each do |file_array| %>
+          <li><%= link_to("openn/#{file_array}", file_array) %></li>
+      <% end %>
+    <% end %>
+  </ul>
+
+</div>

@@ -10,7 +10,9 @@ gem 'sinatra-activerecord'
 gem 'rake'
 
 gem 'nokogiri'
-gem 'stronghold'
+gem 'sass'
+gem 'sprockets'
+gem 'sprockets-helpers'
 
 group :development do
   gem 'pry'
