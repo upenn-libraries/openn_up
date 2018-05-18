@@ -1,0 +1,204 @@
+body {
+  font-family: 'Droid sans', Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  color: #3b4e6b;
+  margin: 0px;
+  padding: 0px;
+  background-image: url(top_back09.jpg);
+  background-repeat: repeat-x;
+  margin-bottom: 40px;
+}
+
+
+html {
+  position: relative;
+  min-height: 99%;
+  overflow-x:hidden;
+}
+
+#intro_text {
+  position: absolute;
+  margin-left: 26%;
+  margin-right: 24%;
+  font-family: 'Droid sans', Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  color: #3b4e6b;
+  top: 110px;
+  padding-top: 3px;
+  padding-right: 10px;
+  padding-left: 10px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: #666;
+  text-align: justify;
+}
+#div_logo {
+  height: 63px;
+  width: 740px;
+  position: absolute;
+  visibility: visible;
+  z-index: 5;
+  text-align: left;
+  left: 50%;
+  margin-left: -370px;
+}
+
+#div_logo img {
+  border: 0px;
+}
+
+#div_toplinks {
+  font-family: 'Droid sans', Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  text-align: center;
+  height: 30px;
+  width: 50%;
+  margin-left: 26%;
+  margin-right: 24%;
+  position: absolute;
+  top: 70px;
+  color: #5C7091;
+
+  letter-spacing: .04em;
+}
+
+#div_toplinks a:link, #div_toplinks a:visited {
+  color: #2a6496;
+  text-decoration: none;
+}
+
+#div_directory {
+  font-family: 'Droid sans', Verdana, Geneva, sans-serif;
+  font-size: 16px;
+  color: #3b4e6b;
+  position: absolute;
+  width: 100%;
+  top: 230px;
+  text-align: center;
+}
+
+#div_directory table {
+  position: absolute;
+  margin-left: 29%;
+  margin-right: 26%;
+  border-spacing: 0;
+  width: 45%;
+  max-width: 700px;
+  padding-bottom: 65px;
+}
+
+#div_directory table th {
+  font-family: 'Droid sans', Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  color: #3b4e6b;
+  padding-bottom: 6px;
+}
+#div_directory table th a:link, #div_directory table th a:visited {
+  color: #3b4e6b;
+}
+#div_directory table td:nth-child(3), #div_directory table td:nth-child(4) {
+  text-align: right;
+}
+#div_directory table th:nth-child(3), #div_directory table th:nth-child(4) {
+  text-align: center;
+}
+#div_directory table td {
+  border-top: solid 1px #ccc;
+  font-family: 'Droid sans', Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  color: #3b4e6b;
+  padding-top: 6px;
+  padding-right: 30px;
+  padding-bottom: 6px;
+  padding-left: 0px;
+  text-align: left;
+}
+#div_directory table td a:link, #div_directory table td a:visited {
+  text-decoration: none;
+  color: #3b4e6b;
+}
+
+.ul_documents {
+  list-style-type: none;
+}
+
+.ul_documents li {
+  margin-top: 12px;
+  line-height: 18px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 35px;
+  font-family: 'Droid sans', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  background-color: #556886;
+  text-align: center;
+  /* padding-bottom: 5px; */
+  padding-top: 7px;
+  z-index: 50;
+}
+.footer img {
+  vertical-align: middle;
+}
+
+#content {
+  padding-bottom: 65px;
+  width: 60%;
+  margin-left: 22%;
+  margin-right: 28%;
+  top: 105px;
+  position: absolute;
+}
+
+#content p {
+  text-align: justify;
+}
+
+#content a:link, #content a:visited {
+  color: #2a6496;
+  text-decoration: none;
+}
+
+
+#divthumbs {
+  visibility: visible;
+  z-index: 3;
+  /* width: 320px; */
+  /* position: static; */
+  height: 200px;
+  margin: 2px;
+  padding: 5px;
+  /* margin-left: 110px; */
+}
+
+#divthumbs hr {
+}
+
+.divthumb {
+  clear: both;
+  line-height: 30px;
+}
+
+.label {
+  letter-spacing: 0.05em;
+  line-height: 42px;
+  font-weight: bold;
+}
+
+
+#divthumbs img{
+  float: left;
+  margin-right: 11px;
+  margin-bottom: 12px;
+  margin-left: 10px;
+}
+
+#content .numbername {
+  font-size: 16px;
+  letter-spacing: 0.04em;
+}

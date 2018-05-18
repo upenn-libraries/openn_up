@@ -9,11 +9,11 @@ default: &default
 
 development:
   <<: *default
-  database: fort_stronghold_dev
+  database: openn_up_dev
 
 test:
   <<: *default
-  database: fort_stronghold_test
+  database: openn_up_test
 
 production:
   <<: *default
