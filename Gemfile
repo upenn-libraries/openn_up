@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-source 'http://localhost:9292'
 
 ruby '2.4.0'
 
@@ -16,4 +15,5 @@ gem 'stronghold'
 group :development do
   gem 'pry'
   gem 'tux'
+  gem 'thin'
 end
