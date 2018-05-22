@@ -35,8 +35,7 @@ class Application < Sinatra::Base
     }
 
     headers = headers_hash[File.extname(openn_id)]
-    raise 'Invalid content type' if headers.nil?
-
+    
     colenda_path = OpennObject.where(:openn_id => openn_id).pluck(:colenda_id)
     raise 'non-unique path value' if colenda_path.size > 1
     colenda_path = colenda_path.first
@@ -56,11 +55,25 @@ class Application < Sinatra::Base
     end
   end
 
+  def check_for_wget(params)
+    prefix = params['splat'].first
+    payload = ''
+    OpennObject.where("openn_id LIKE '%#{prefix}%'").pluck(:openn_id).each do |oid|
+      oid.gsub!(prefix,'')
+      payload << relative_link_to(oid)
+    end
+    return payload
+  end
+
   helpers do
     def link_to(url_fragment, path)
       port = request.port.nil? ? '' : ":#{request.port}"
       url = "#{request.scheme}://#{request.host}#{port}/#{url_fragment}"
       return "<a href=\"#{url}\">#{path}</a>"
+    end
+
+    def relative_link_to(path)
+      return "<a href=\"#{path}\">#{path}</a>"
     end
 
     def openn_entries
@@ -99,15 +112,27 @@ class Application < Sinatra::Base
     end
   end
 
+  # get '/openn/Data/0001/ljs314/data/master/' do
+  #   content_type 'text/html'
+  #   return '<a href="0179_0000.tif">0179_0000.tif</a>'
+  # end
+
   get '/openn/*' do
-    openn_id = params['splat'].first
-    colenda_id, headers = fetch_from_colenda(openn_id)
-    content_type(headers)
-    stream do |obj|
-      load_from_colenda(colenda_id) do |chunk|
-        obj << chunk
+    html_payload = %w[.tif .jpg].member?(File.extname(params['splat'].first)) ? '' : check_for_wget(params)
+    if html_payload.empty?
+      openn_id = params['splat'].first
+      colenda_id, headers = fetch_from_colenda(openn_id)
+      content_type(headers)
+      stream do |obj|
+        load_from_colenda(colenda_id) do |chunk|
+          obj << chunk
+        end
       end
+    else
+      content_type 'text/html'
+      html_payload
     end
   end
+
 
 end
