@@ -35,9 +35,7 @@ class Application < Sinatra::Base
     }
 
     headers = headers_hash[File.extname(openn_id)]
-
-    #raise 'Invalid content type' if headers.nil?
-
+    
     colenda_path = OpennObject.where(:openn_id => openn_id).pluck(:colenda_id)
     raise 'non-unique path value' if colenda_path.size > 1
     colenda_path = colenda_path.first
