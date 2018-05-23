@@ -31,7 +31,8 @@ class Application < Sinatra::Base
   def fetch_from_colenda(openn_id)
 
     headers_hash = {'.jpg' => 'image/jpg',
-                    '.tif' => 'application/octet-stream'
+                    '.tif' => 'application/octet-stream',
+                    '.xml' => 'text/xml'
     }
 
     headers = headers_hash[File.extname(openn_id)]
@@ -96,10 +97,12 @@ class Application < Sinatra::Base
                       'Data/0001/ljs314/data/master/0179_0001.tif' => '/ark99999fk4dv2rr78/SHA256E-s125983512--050429a2df1543184d6fd79624df883ea5027b5591c9c5f5de311ed35f6311f2.tif',
                       'Data/0001/ljs314/data/web/0179_0000_web.jpg' => '/ark99999fk4dv2rr78/SHA256E-s846432--eaa97ac9c0fd6cc9907f4cc313141c4f21027ea5f9e024f2d11bbde59a9d3253.tif.jpeg',
                       'Data/0001/ljs314/data/web/0179_0001_web.jpg' => '/ark99999fk4dv2rr78/SHA256E-s501185--9053c49b04a2df6fbe8b5326edbf530ab59ea9eb6431c6dd463a539d9bb70f43.tif.jpeg',
+                      'Data/0001/ljs314/data/METS.xml' => '/ark99999fk4dv2rr78/SHA256E-s4248--d979605f68f5eb345aad37bd9d8139a33f7008bec62b97323dc9cf9b20ea6f14.xml',
                       'Data/0001/ljs309/data/master/0169_0000.tif' => '/ark99999fk4pc46c51/SHA256E-s62094068--9199461521613f508943dd1e0938a7cb4e077aff54a4b6451ed99b3fbb79743b.tif',
                       'Data/0001/ljs309/data/master/0169_0001.tif' => '/ark99999fk4pc46c51/SHA256E-s62094068--23925c65cd44e9d408ede8b7d4ea83ff2fcae9c7b8e8ec2154f3b5cb52e468b3.tif',
-                      'Data/0001/ljs309/data/web/0169_0000_web.jpg' => '/ark99999fk4pc46c51/SHA256E-s2004824--90ed089fd43ced8597f59520ceec40b20d88b9d830dca8fd2a43b3f3cb7c295a.tif.jpeg',
-                      'Data/0001/ljs309/data/web/0169_0001_web.jpg' => '/ark99999fk4pc46c51/SHA256E-s2221190--336a2dc68eb908202935cb1b98ddd5a4618b9bd0d636a542ab6a9d1a353bb056.tif.jpeg'
+                      'Data/0001/ljs309/data/web/0169_0000_web.jpg' => '/ark99999fk4pc46c51/SHA256E-s2221190--336a2dc68eb908202935cb1b98ddd5a4618b9bd0d636a542ab6a9d1a353bb056.tif.jpeg',
+                      'Data/0001/ljs309/data/web/0169_0001_web.jpg' => '/ark99999fk4pc46c51/SHA256E-s2004824--90ed089fd43ced8597f59520ceec40b20d88b9d830dca8fd2a43b3f3cb7c295a.tif.jpeg',
+                      'Data/0001/ljs309/data/METS.xml' => '/ark99999fk4pc46c51/SHA256E-s5208--ef6c72d0a3bd3274e1f3e0ac0390d204d1dc81469200e9039a0bfd3bc8d37c81.xml'
     }
     create_objects_from_payload(sample_payload)
     return 'Objects loaded'
@@ -118,7 +121,7 @@ class Application < Sinatra::Base
   # end
 
   get '/openn/*' do
-    html_payload = %w[.tif .jpg].member?(File.extname(params['splat'].first)) ? '' : check_for_wget(params)
+    html_payload = %w[.tif .jpg .xml].member?(File.extname(params['splat'].first)) ? '' : check_for_wget(params)
     if html_payload.empty?
       openn_id = params['splat'].first
       colenda_id, headers = fetch_from_colenda(openn_id)
