@@ -1,3 +1,10 @@
 ## README for openn_up
 
-TODO: Fill this out
+## Running the application
+
+This application requires thin for simulated file streaming.  After running the database migrations and loading data in, start the server:
+
+```
+rackup -s thin
+```
+
